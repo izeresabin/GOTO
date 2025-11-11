@@ -42,3 +42,40 @@ END;
 ```
 <img width="1920" height="1080" alt="PLSQL Collection" src="https://github.com/user-attachments/assets/a68147a8-708e-47cc-85e0-951847f5ce75" />
 
+## PL/SQL Records
+```sql
+DECLARE
+  -- User-defined record
+  TYPE emp_record IS RECORD (
+    fname employees.first_name%TYPE,
+    lname employees.last_name%TYPE,
+    sal   employees.salary%TYPE
+  );
+  v_rec emp_record;
+
+  -- %ROWTYPE record
+  v_row employees%ROWTYPE;
+BEGIN
+  -- Fill custom record
+  SELECT first_name, last_name, salary
+  INTO v_rec
+  FROM employees
+  WHERE employee_id = 1;
+
+  DBMS_OUTPUT.PUT_LINE('--- USER-DEFINED RECORD OUTPUT ---');
+  DBMS_OUTPUT.PUT_LINE(v_rec.fname || ' ' || v_rec.lname || ' earns ' || v_rec.sal);
+
+  -- Fill %ROWTYPE record
+  SELECT *
+  INTO v_row
+  FROM employees
+  WHERE employee_id = 2;
+
+  DBMS_OUTPUT.PUT_LINE(CHR(10) || '--- %ROWTYPE RECORD OUTPUT ---');
+  DBMS_OUTPUT.PUT_LINE(v_row.first_name || ' ' || v_row.last_name || ' earns ' || v_row.salary);
+END;
+/
+```
+<img width="1920" height="1080" alt="PLSQL Records" src="https://github.com/user-attachments/assets/fc455bf0-43a6-44fd-a336-e52152b08e16" />
+
+
