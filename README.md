@@ -78,4 +78,27 @@ END;
 ```
 <img width="1920" height="1080" alt="PLSQL Records" src="https://github.com/user-attachments/assets/fc455bf0-43a6-44fd-a336-e52152b08e16" />
 
+## GOTO Statement
+```sql
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('--- GOTO STATEMENT OUTPUT ---');
+
+  FOR emp IN (SELECT first_name, salary FROM employees) LOOP
+    IF emp.salary <= 0 THEN
+      GOTO skip_salary;
+    END IF;
+
+    DBMS_OUTPUT.PUT_LINE(emp.first_name || ' has valid salary: ' || emp.salary);
+    CONTINUE;
+
+    <<skip_salary>>
+    DBMS_OUTPUT.PUT_LINE(emp.first_name || ' skipped due to invalid salary.');
+  END LOOP;
+
+END;
+/
+```
+<img width="1920" height="1080" alt="GOTO Statement" src="https://github.com/user-attachments/assets/a6641e8c-b150-4ff2-913f-2ac6e668eedb" />
+
+
 
